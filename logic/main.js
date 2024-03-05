@@ -28,7 +28,7 @@ let randomPropValue = words[randomPropName];
 let randomValueNumber = Math.floor(Math.random() * randomPropValue.length);
 let randomValue = randomPropValue[randomValueNumber];
 // set category info
-document.querySelector('.category span').textContent = `${randomPropName} ${randomValue}`;
+document.querySelector('.category span').textContent = `${randomPropName}`;
 
 let lettersGuessContainer = document.querySelector('.guess-letters');
 let lettersAndSpace = Array.from(randomValue);
@@ -44,9 +44,13 @@ lettersAndSpace.forEach((letter) => {
 })
 
 let guessSpans = document.querySelectorAll('.guess-letters span');
-let Status = false;
+let wrongAttempts = 0;
+let rightAttempts = 0;
+let draw = document.querySelector('.hangman-draw');
 
 document.addEventListener('click',(e) => {
+    let Status = false;
+
     if(e.target.className === 'letter-box') {
         e.target.classList.add('clicked');
 
@@ -58,5 +62,50 @@ document.addEventListener('click',(e) => {
                 guessSpans[wordIndex].textContent = clickedletter;
             }
         })
+        if(Status === false) {
+            wrongAttempts++;
+            draw.classList.add(`wrong-${wrongAttempts}`);
+            document.getElementById('fail').play();
+
+            if(wrongAttempts === 8) {
+                lettersContainer.classList.add('finish');
+                endGame(Status);
+            }
+        } else {
+            rightAttempts++;
+            document.getElementById('success').play();
+            if(lettersAndSpace.includes(" ")){
+                if(rightAttempts === lettersAndSpace.length - 1) {
+                    endGame(Status);
+                }
+            } else {
+                if(rightAttempts === lettersAndSpace.length) {
+                    endGame(Status);
+                }
+            }
+
+        }
     }
 })
+
+function endGame(Status){
+    let div = document.createElement('div');
+    let shadow = document.createElement('div');
+
+    shadow.className = 'shadow';
+    div.className = 'pop-up';
+
+    if(Status === true) {
+        div.classList.add('success');
+        div.appendChild(document.createTextNode("Congratulations!"));
+    } else {
+        div.classList.add('fail');
+        div.appendChild(document.createTextNode("Game Over!"));
+    }
+
+    document.body.appendChild(div);
+    document.body.appendChild(shadow)
+    setTimeout(() => {
+        location.reload();
+    },5000)
+}

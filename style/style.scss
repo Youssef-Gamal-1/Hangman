@@ -45,20 +45,33 @@ hr {
     border-bottom: $width solid $imp-color;
     position: relative;
     margin: auto;
+    display: none;
+}
+:has(.hangman-draw.wrong-1) .draw{
+    display: block;
 }
 @media (max-width: 726px) {
     .hangman-draw .draw {
         margin: 0
     }
 }
-.hangman-draw .stand::before {
-    content: '';
+.hangman-draw .stand {
     position: absolute;
     width: $width;
     background-color: $imp-color;
     height: 100%;
     left: 50%;
     transform: translateX(-50%);
+    display: none;
+}
+:has(.hangman-draw.wrong-2) .stand{
+    display: block;
+}
+.hangman-draw .hang {
+    display: none
+}
+:has(.hangman-draw.wrong-3) .hang{
+    display: block;
 }
 .hangman-draw .hang::before {
     content: '';
@@ -87,6 +100,10 @@ hr {
     top: 45px;
     border: $width dotted $imp-color;
     z-index: 2;
+    display: none;
+}
+:has(.hangman-draw.wrong-4) .rope{
+    display: block;
 }
 .hangman-draw .head {
     width: 50px;
@@ -95,7 +112,11 @@ hr {
     position: absolute;
     left: 107px;
     top: 54px;
-    border: $width solid $imp-color
+    border: $width solid $imp-color;
+    display: none
+}
+:has(.hangman-draw.wrong-5) .head{
+    display: block;
 }
 .hangman-draw .body {
     position: absolute;
@@ -104,6 +125,16 @@ hr {
     width: $width;
     top: 102px;
     left: 130px;
+    display: none;
+}
+:has(.hangman-draw.wrong-6) .body{
+    display: block;
+}
+.hangman-draw .hands {
+    display: none
+}
+:has(.hangman-draw.wrong-7) .hands{
+    display: block;
 }
 .hangman-draw .hands::before,
 .hands::after {
@@ -121,6 +152,12 @@ hr {
 .hangman-draw .hands::after {
     left: 130px;
     transform: rotate(-30deg);
+}
+.hangman-draw .legs {
+    display: none
+}
+:has(.hangman-draw.wrong-8) .legs{
+    display: block;
 }
 .hangman-draw .legs::before,
 .legs::after {
@@ -146,6 +183,9 @@ hr {
     text-align: center;
     grid-template-columns: repeat(auto-fill,minmax(60px,1fr));
     gap: 10px
+}
+:has(.letters.finish) {
+    pointer-events: none;
 }
 .letters span {
     background-color: $letter-box;
@@ -199,4 +239,34 @@ hr {
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
+}
+.pop-up{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: $imp-color;
+    padding: 50px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    z-index: 100;
+}
+.pop-up.success {
+    color: white;
+}
+.pop-up.fail {
+    color: red;
+}
+.shadow {
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: .4;
+    position: absolute;
+    left: 0;
+    top: 0
 }
