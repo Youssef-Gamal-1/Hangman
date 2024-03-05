@@ -1,0 +1,202 @@
+@use 'global';
+@use 'vars' as *;
+
+.container {
+    margin: 20px auto;
+    width: 80%;
+}
+.row {
+    display: flex;
+}
+@media (max-width: 726px) {
+    .row {
+        flex-direction: column;
+        height: calc(100vh - 71px);
+        padding: 0px;
+    }
+}
+hr {
+    border: 1px solid #EEE;
+}
+.game-info {
+    display: flex;
+}
+.game-info .game-name {
+    flex: 1;
+}
+.game-info .category {
+    flex: 1;
+    text-align: right;
+}
+.game-info .category span {
+    text-transform: capitalize;
+    color: $main-color;
+    font-weight: bold;
+}
+.hangman-draw {
+    flex: 1;
+    background-color: $background;
+    padding: 20px;
+    height: 324px;
+}
+.hangman-draw .draw {
+    width: 60px;
+    height: 280px;
+    border-bottom: $width solid $imp-color;
+    position: relative;
+    margin: auto;
+}
+@media (max-width: 726px) {
+    .hangman-draw .draw {
+        margin: 0
+    }
+}
+.hangman-draw .stand::before {
+    content: '';
+    position: absolute;
+    width: $width;
+    background-color: $imp-color;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.hangman-draw .hang::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: $width;
+    background-color: $imp-color;
+    left: 30px;
+    top: 15px;
+}
+.hangman-draw .hang::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 30px;
+    background-color: $imp-color;
+    left: 130px;
+    top: 15px;
+}
+.hangman-draw .rope {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    position: absolute;
+    left: 97px;
+    top: 45px;
+    border: $width dotted $imp-color;
+    z-index: 2;
+}
+.hangman-draw .head {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: absolute;
+    left: 107px;
+    top: 54px;
+    border: $width solid $imp-color
+}
+.hangman-draw .body {
+    position: absolute;
+    background-color: $imp-color;
+    height: 100px;
+    width: $width;
+    top: 102px;
+    left: 130px;
+}
+.hangman-draw .hands::before,
+.hands::after {
+    content: '';
+    width: 50px;
+    position: absolute;
+    height: $width;
+    background-color: $imp-color;
+    top: 140px;
+}
+.hangman-draw .hands::before {
+    left: 85px;
+    transform: rotate(30deg);
+}
+.hangman-draw .hands::after {
+    left: 130px;
+    transform: rotate(-30deg);
+}
+.hangman-draw .legs::before,
+.legs::after {
+    content: '';
+    width: 50px;
+    position: absolute;
+    height: $width;
+    background-color: $imp-color;
+    top: 210px;
+}
+.hangman-draw .legs::before {
+    left: 85px;
+    transform: rotate(-30deg);
+}
+.hangman-draw .legs::after {
+    left: 130px;
+    transform: rotate(30deg);
+}
+.letters {
+    flex: 1;
+    padding: 10px;
+    display: grid;
+    text-align: center;
+    grid-template-columns: repeat(auto-fill,minmax(60px,1fr));
+    gap: 10px
+}
+.letters span {
+    background-color: $letter-box;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 3px;
+}
+.letters span.clicked {
+    background-color: #333;
+    opacity: .3;
+    pointer-events: none;
+}
+.guess-letters {
+    margin: 10px auto;
+    background-color: $background;
+    display: flex;
+    justify-content: center;
+    min-height: 104px;
+    align-items: center;
+}
+.guess-letters span{
+    width: 60px;
+    height: 60px;
+    margin-right: 5px;
+    border-bottom: 3px solid $imp-color;
+    font-size: 24;
+    text-align: center;
+    line-height: 60px;
+    font-weight: bold;
+    background-color: #FDFDFD;
+    text-transform: uppercase;
+    transition: $main-transition;
+}
+.guess-letters span.has-space {
+    background: none;
+    border-bottom: none;
+    position: relative
+}
+.guess-letters span.has-space::before {
+    content: '';
+    height: $width;
+    width: 20px;
+    background-color: $imp-color;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
